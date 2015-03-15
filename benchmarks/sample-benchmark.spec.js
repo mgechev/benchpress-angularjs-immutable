@@ -1,5 +1,5 @@
 /* global browser, it, describe, beforeEach */
-describe('deep tree baseline', function () {
+describe('Immutable data structure', function () {
   'use strict';
 
   var runner;
@@ -24,12 +24,12 @@ describe('deep tree baseline', function () {
 
   it('should be fast!', function (done) {
     var bindingsCount = 10;
-    var dataSize = 10;
+    var dataSize = 10000;
     //Tells protractor this isn't an Angular 1 application
-    //browser.ignoreSynchronization = true;
+    browser.ignoreSynchronization = true;
     //Load the benchmark, with a tree depth of 9
     browser
-    .get('http://localhost:8080/public/index.html/#/?bindingsCount=' +
+    .get('http://localhost:8080/#/?bindingsCount=' +
       bindingsCount + '&dataSize=' + dataSize);
     /*
      * Tell benchpress to click the buttons to destroy and
@@ -40,15 +40,15 @@ describe('deep tree baseline', function () {
      * for last 20 samples is stable.
      */
     runner.sample({
-      id: 'deep-tree',
+      id: 'immutable-test',
       execute: function () {
         /*
          * Will call querySelector in the browser, but
          * benchpress is smart enough to ignore injected
          * script.
          */
-        $('#destroyDom').click();
-        $('#createDom').click();
+        $('#immutable-btn').click();
+        $('#clear-btn').click();
       }
     }).then(done, done.fail);
   });

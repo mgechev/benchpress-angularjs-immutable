@@ -24,7 +24,7 @@ exports.config = {
   beforeLaunch: function () {
     'use strict';
     httpServer.createServer({
-      showDir: false
+      showDir: true
     }).listen('8080', 'localhost');
   },
 
