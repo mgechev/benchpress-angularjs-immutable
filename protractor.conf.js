@@ -1,3 +1,4 @@
+/* global afterEach, beforeEach, browser */
 var httpServer = require('http-server');
 
 exports.config = {
@@ -7,9 +8,9 @@ exports.config = {
     browserName: 'chrome',
     chromeOptions: {
       //Important for benchpress to get timeline data from the browser
-      'args': ['--js-flags=--expose-gc'],
-      'perfLoggingPrefs': {
-        'traceCategories': 'blink.console,disabled-by-default-devtools.timeline'
+      args: ['--js-flags=--expose-gc'],
+      perfLoggingPrefs: {
+        traceCategories: 'blink.console,disabled-by-default-devtools.timeline'
       }
     },
     loggingPrefs: {
@@ -21,22 +22,23 @@ exports.config = {
   framework: 'jasmine2',
 
   beforeLaunch: function () {
+    'use strict';
     httpServer.createServer({
       showDir: false
     }).listen('8080', 'localhost');
   },
 
-  onPrepare: function() {
+  onPrepare: function () {
+    'use strict';
     // open a new browser for every benchmark
     var originalBrowser = browser;
-    var _tmpBrowser;
-    beforeEach(function() {
+    beforeEach(function () {
       global.browser = originalBrowser.forkNewDriverInstance();
       global.element = global.browser.element;
       global.$ = global.browser.$;
       global.$$ = global.browser.$$;
     });
-    afterEach(function() {
+    afterEach(function () {
       global.browser.quit();
       global.browser = originalBrowser;
     });
