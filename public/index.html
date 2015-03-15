@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title></title>
 </head>
-<body data-ng-app>
+<body data-ng-app="benchmarks" data-ng-controller="SampleCtrl">
 <section>
   <button id="clear-btn" data-ng-click="clear()">Clear</button>
   <button id="immutable-btn" data-ng-click="bindImmutable()">
@@ -16,12 +16,12 @@
 </section>
 <section>
   <ul>
-    <li data-ng-repeat="item in immutable | immutable track by $id" data-ng-bind="item"></li>
+    <li data-ng-repeat="item in immutable | immutable track by $index" data-ng-bind="item"></li>
   </ul>
 </section>
 <section>
   <ul>
-    <li data-ng-repeat="item in standard track by $id" data-ng-bind="item"></li>
+    <li data-ng-repeat="item in standard track by $index" data-ng-bind="item"></li>
   </ul>
 </section>
 <script src="./node_modules/angular/angular.js"></script>

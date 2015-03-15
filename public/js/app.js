@@ -33,4 +33,4 @@ function SampleCtrl($scope, $location) {
 }
 
 benchmarks
-  .controller('SampleCtr', SampleCtrl);
+  .controller('SampleCtrl', SampleCtrl);
