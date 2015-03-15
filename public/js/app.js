@@ -8,7 +8,7 @@ function generateData(size) {
   for (var i = 0; i < size; i += 1) {
     result.push(Math.random());
   }
-  return size;
+  return result;
 }
 
 function SampleCtrl($scope, $location) {
