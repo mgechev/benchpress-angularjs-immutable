@@ -1,0 +1,24 @@
+{
+  "name": "benchpress-angularjs-immutable",
+  "version": "0.0.0",
+  "description": "Benchmarks for using specific data structures for optimization of the $digest loop",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mgechev/benchpress-angularjs-immutable.git"
+  },
+  "author": "Minko Gechev <mgechev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mgechev/benchpress-angularjs-immutable/issues"
+  },
+  "homepage": "https://github.com/mgechev/benchpress-angularjs-immutable",
+  "dependencies": {
+    "benchpress": "^2.0.0-alpha.13",
+    "http-server": "^0.7.5",
+    "protractor": "^1.8.0"
+  }
+}
