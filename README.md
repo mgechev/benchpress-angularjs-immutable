@@ -6,7 +6,7 @@ The script is inspired by this [blog post](http://blog.mgechev.com/2015/03/02/im
 
 You can run it by:
 
-```javascript
+```bash
 mkdir log && mkdir charts
 npm install # node-canvas may create troubles
 # customize the collection sizes and bindings count at ./benchmarks/benchmarks.spec.js
