@@ -3,7 +3,11 @@
 var fs = require('fs');
 var path = require('path');
 var DIR_NAME = 'log';
-var CHART_DIR = 'charts';
+var date = new Date();
+var dateSuffix = date.getDate() + '-' +
+  (date.getMonth() + 1) + '-' +
+  (date.getYear() % 100);
+var CHART_DIR = 'charts/' + dateSuffix;
 
 function parseResult(result) {
   function mean(arr) {
