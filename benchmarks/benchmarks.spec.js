@@ -7,7 +7,7 @@ describe('Immutable data structure', function () {
 
   function runImmutableBenchmark(dataSize, bindingsCount, done) {
     //Tells protractor this isn't an Angular 1 application
-    browser.ignoreSynchronization = true;
+//    browser.ignoreSynchronization = true;
     //Load the benchmark, with a tree depth of 9
     browser
     .get('http://localhost:8080/#/?bindingsCount=' +
