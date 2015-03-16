@@ -18,7 +18,9 @@
   "homepage": "https://github.com/mgechev/benchpress-angularjs-immutable",
   "dependencies": {
     "benchpress": "^2.0.0-alpha.13",
+    "canvas": "^1.2.1",
     "http-server": "^0.7.5",
+    "nchart": "^1.0.1",
     "protractor": "^1.8.0"
   }
 }
