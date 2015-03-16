@@ -86,7 +86,7 @@ describe('Immutable data structure', function () {
     ]);
   });
 
-  var dataSizes = [5, 10];//, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 100000];
+  var dataSizes = [5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 100000];
   var bindingsCount = [5, 10];//, 20, 40, 50];
 
   var product = [];
