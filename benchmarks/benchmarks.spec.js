@@ -87,7 +87,7 @@ describe('Immutable data structure', function () {
   });
 
   var dataSizes = [5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 100000];
-  var bindingsCount = [5, 10];//, 20, 40, 50];
+  var bindingsCount = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   var product = [];
   for (var s = 0; s < dataSizes.length; s += 1) {
@@ -114,5 +114,4 @@ describe('Immutable data structure', function () {
         runStandardBenchmark(b.dataSize, b.bindingsCount, done);
       });
   });
-
 });
