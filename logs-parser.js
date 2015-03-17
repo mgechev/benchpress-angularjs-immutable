@@ -48,8 +48,7 @@ function drawLegendEntry(ctx, data, layout) {
   ctx.fillText(data.label, layout.left + 25, layout.top + 10);
 
   ctx.fillStyle = data.strokeColor;
-  ctx.rect(layout.left, layout.top, 20, 20);
-  ctx.fill();
+  ctx.fillRect(layout.left, layout.top, 20, 20);
 }
 
 function drawLegend(ctx, rect, data) {
@@ -61,7 +60,7 @@ function drawLegend(ctx, rect, data) {
 
 function generateChart(labels, dataset) {
   var Canvas = require('canvas');
-  var canvas = new Canvas(600, 400);
+  var canvas = new Canvas(800, 500);
   var ctx = canvas.getContext('2d');
   var Chart = require('nchart');
   var data = {
@@ -75,10 +74,6 @@ function generateChart(labels, dataset) {
     width: 190,
     height: 70
   };
-//  ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-//  ctx.rect(legendSize.left, legendSize.top,
-//      legendSize.width, legendSize.height);
-//  ctx.fill();
   drawLegend(ctx, legendSize, dataset);
   return canvas;
 }
