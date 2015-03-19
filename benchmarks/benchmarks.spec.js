@@ -63,6 +63,64 @@ describe('Immutable data structure', function () {
     }).then(done, done.fail);
   }
 
+  function runUpdateImmutableBenchmark(dataSize, bindingsCount, done) {
+    //Tells protractor this isn't an Angular 1 application
+//    browser.ignoreSynchronization = true;
+    //Load the benchmark, with a tree depth of 9
+    browser
+    .get('http://localhost:8080/#/?bindingsCount=' +
+      bindingsCount + '&dataSize=' + dataSize + '&change=true');
+    /*
+     * Tell benchpress to click the buttons to destroy and
+     * re-create the tree for each sample.
+     * Benchpress will log the collected metrics after each
+     * sample is collected, and will stop
+     * sampling as soon as the calculated regression slope
+     * for last 20 samples is stable.
+     */
+    runner.sample({
+      id: 'update immutable-' + dataSize + '-' + bindingsCount,
+      execute: function () {
+        /*
+         * Will call querySelector in the browser, but
+         * benchpress is smart enough to ignore injected
+         * script.
+         */
+        $('#update-immutable-btn').click();
+      }
+    }).then(done, done.fail);
+  }
+
+
+  function runUpdateStandardBenchmark(dataSize, bindingsCount, done) {
+    //Tells protractor this isn't an Angular 1 application
+    browser.ignoreSynchronization = true;
+    //Load the benchmark, with a tree depth of 9
+    browser
+    .get('http://localhost:8080/#/?bindingsCount=' +
+      bindingsCount + '&dataSize=' + dataSize + '&change=true');
+    /*
+     * Tell benchpress to click the buttons to destroy and
+     * re-create the tree for each sample.
+     * Benchpress will log the collected metrics after each
+     * sample is collected, and will stop
+     * sampling as soon as the calculated regression slope
+     * for last 20 samples is stable.
+     */
+    runner.sample({
+      id: 'update standard-' + dataSize + '-' + bindingsCount,
+      execute: function () {
+        /*
+         * Will call querySelector in the browser, but
+         * benchpress is smart enough to ignore injected
+         * script.
+         */
+        $('#update-standard-btn').click();
+      }
+    }).then(done, done.fail);
+  }
+
+
   beforeEach(function () {
     benchpress = require('benchpress');
     runner = new benchpress.Runner([
@@ -99,11 +157,27 @@ describe('Immutable data structure', function () {
     }
   }
 
+//  product.forEach(function (b) {
+//    it('runs with ' + b.dataSize + ' data size, ' +
+//      b.bindingsCount + ' bindings',
+//      function (done) {
+//        runImmutableBenchmark(b.dataSize, b.bindingsCount, done);
+//      });
+//  });
+//
+//  product.forEach(function (b) {
+//    it('runs with ' + b.dataSize + ' data size, ' +
+//      b.bindingsCount + ' bindings',
+//      function (done) {
+//        runStandardBenchmark(b.dataSize, b.bindingsCount, done);
+//      });
+//  });
+
   product.forEach(function (b) {
     it('runs with ' + b.dataSize + ' data size, ' +
       b.bindingsCount + ' bindings',
       function (done) {
-        runImmutableBenchmark(b.dataSize, b.bindingsCount, done);
+        runUpdateImmutableBenchmark(b.dataSize, b.bindingsCount, done);
       });
   });
 
@@ -111,7 +185,8 @@ describe('Immutable data structure', function () {
     it('runs with ' + b.dataSize + ' data size, ' +
       b.bindingsCount + ' bindings',
       function (done) {
-        runStandardBenchmark(b.dataSize, b.bindingsCount, done);
+        runUpdateStandardBenchmark(b.dataSize, b.bindingsCount, done);
       });
   });
+
 });

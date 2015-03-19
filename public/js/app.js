@@ -39,6 +39,10 @@ function SampleCtrl($scope, $location) {
     });
   }
 
+  function generateRandomIndx(collection) {
+    return Math.floor(Math.random() * collection.length);
+  }
+
   // Creates a new immutable collection with the specified size
   // and binds it to the local property `immutable`.
   // Also adds the specified number of watchers to the
@@ -56,6 +60,35 @@ function SampleCtrl($scope, $location) {
     $scope.standard = generateData(dataSize);
     addCollectionWatchers('standard', bindingsCount, watchers.standard);
   };
+
+  // Updates the current value of the `standard` collection
+  $scope.updateStandard = function () {
+    if (!$scope.standard) {
+      $scope.standard = generateData(dataSize);
+    } else {
+      var idx = generateRandomIndx($scope.standard);
+      $scope.stsandard[idx] = Math.random();
+    }
+  };
+
+  // Updates the current value of the `immutable` collection
+  $scope.updateImmutable = function () {
+    if (!$scope.immutable) {
+      $scope.immutable = Immutable.List(generateData(dataSize));
+    } else {
+      // We can cache the plain collection here
+      var js = $scope.immutable.toJS();
+      var idx = generateRandomIndx(js);
+      js[idx] = Math.random();
+      $scope.immutable = Immutable.List(js);
+    }
+  };
+
+  // In case we are running benchmark, which changes the array
+  if ($location.search().change) {
+    addWatchers('immutable', bindingsCount, watchers.immutable);
+    addCollectionWatchers('standard', bindingsCount, watchers.standard);
+  }
 
   // Clears the `immutable` collection and removes all
   // listeners attached to it (except ng-repeat in the template).
