@@ -1,4 +1,5 @@
 /* global browser, it, describe, beforeEach */
+var options = require('./options.json');
 describe('Immutable data structure', function () {
   'use strict';
 
@@ -123,13 +124,15 @@ describe('Immutable data structure', function () {
 
   beforeEach(function () {
     benchpress = require('benchpress');
+    // $(date +%d-%m-%y_%H-%M-%S)
     runner = new benchpress.Runner([
       benchpress.MultiReporter.createBindings([
         benchpress.ConsoleReporter,
         benchpress.JsonFileReporter
       ]),
       benchpress.JsonFileReporter.BINDINGS,
-      benchpress.bind(benchpress.JsonFileReporter.PATH).toValue('./log/'),
+      benchpress.bind(benchpress.JsonFileReporter.PATH)
+        .toValue('./log/' + options.dir),
       //use protractor as Webdriver client
       benchpress.SeleniumWebDriverAdapter.PROTRACTOR_BINDINGS,
       //use RegressionSlopeValidator to validate samples
@@ -157,21 +160,21 @@ describe('Immutable data structure', function () {
     }
   }
 
-//  product.forEach(function (b) {
-//    it('runs with ' + b.dataSize + ' data size, ' +
-//      b.bindingsCount + ' bindings',
-//      function (done) {
-//        runImmutableBenchmark(b.dataSize, b.bindingsCount, done);
-//      });
-//  });
-//
-//  product.forEach(function (b) {
-//    it('runs with ' + b.dataSize + ' data size, ' +
-//      b.bindingsCount + ' bindings',
-//      function (done) {
-//        runStandardBenchmark(b.dataSize, b.bindingsCount, done);
-//      });
-//  });
+  product.forEach(function (b) {
+    it('runs with ' + b.dataSize + ' data size, ' +
+      b.bindingsCount + ' bindings',
+      function (done) {
+        runImmutableBenchmark(b.dataSize, b.bindingsCount, done);
+      });
+  });
+
+  product.forEach(function (b) {
+    it('runs with ' + b.dataSize + ' data size, ' +
+      b.bindingsCount + ' bindings',
+      function (done) {
+        runStandardBenchmark(b.dataSize, b.bindingsCount, done);
+      });
+  });
 
   product.forEach(function (b) {
     it('runs with ' + b.dataSize + ' data size, ' +

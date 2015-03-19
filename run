@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mkdir log/$(date +%d-%m-%y_%H-%M-%S)
+./node_modules/.bin/protractor protractor.conf.js
