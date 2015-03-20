@@ -10,16 +10,8 @@ var FILTERS = [{
   }
 }];
 var DIR_NAME = './log/17-3-15/';
+var Dataset = require('./Dataset.js');
 
-function Dataset(labels, values) {
-  this.labels = labels;
-  this.values = values;
-}
-
-Dataset.prototype.add = function (label, value) {
-  this.labels.push(label);
-  this.values.push(value);
-};
 
 var Statistics = {
   mean: function (arr) {
