@@ -9,8 +9,8 @@ var FILTERS = [{
     return val === 5;
   }
 }];
-var DIR_NAME = '../log/';
-var CHART_DIR = '../charts/';
+var DIR_NAME = './log/';
+var CHART_DIR = './charts/';
 var RenderData = require('./RenderData');
 var Filter = require('./Filter');
 var FilterRule = require('./FilterRule');
@@ -44,5 +44,5 @@ var chart = ChartRenderer.generate(labels, data);
 var filters = FILTERS.map(function (f) {
   return f.key;
 }).join('-');
-console.log(filters);
+
 ChartRenderer.save(chart, path.join(CHART_DIR) + filters + '.png');
