@@ -11,10 +11,10 @@ var FILTERS = [{
 }];
 var DIR_NAME = './log/';
 var CHART_DIR = './charts/';
-var RenderData = require('./RenderData');
-var Filter = require('./Filter');
-var FilterRule = require('./FilterRule');
-var ChartRenderer = require('./ChartRenderer');
+var RenderData = require('./lib/RenderData');
+var Filter = require('./lib/Filter');
+var FilterRule = require('./lib/FilterRule');
+var ChartRenderer = require('./lib/ChartRenderer');
 
 var dataFilter = new Filter(FILTERS.map(function (f) {
   return new FilterRule(f.key, f.value);
