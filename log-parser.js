@@ -31,7 +31,7 @@ function formatResults(config) {
   var labels = data[0].labels;
 
   var chart = ChartRenderer.generate(labels, data);
-  ChartRenderer.save(chart, path.join(config.CHART_DIR) + config.name + '.png');
+  ChartRenderer.save(chart, path.join(config.CHART_DIR) + config.filename + '.png');
 }
 
 var SETS = 'dataType';
@@ -43,6 +43,7 @@ var CHART_DIR = './charts/';
 [5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 100000]
   .forEach(function (s) {
     formatResults({
+      filename: 'data-size-' + s,
       sets: SETS,
       labels: LABELS,
       values: VALUES,

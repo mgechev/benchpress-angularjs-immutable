@@ -39,8 +39,8 @@ function SampleCtrl($scope, $location) {
     });
   }
 
-  function generateRandomIndx(collection) {
-    return Math.floor(Math.random() * collection.length);
+  function generateRandomIndx(length) {
+    return Math.floor(Math.random() * length);
   }
 
   // Creates a new immutable collection with the specified size
@@ -66,7 +66,7 @@ function SampleCtrl($scope, $location) {
     if (!$scope.standard) {
       $scope.standard = generateData(dataSize);
     } else {
-      var idx = generateRandomIndx($scope.standard);
+      var idx = generateRandomIndx($scope.standard.length);
       $scope.standard[idx] = Math.random();
     }
   };
@@ -77,10 +77,8 @@ function SampleCtrl($scope, $location) {
       $scope.immutable = Immutable.List(generateData(dataSize));
     } else {
       // We can cache the plain collection here
-      var js = $scope.immutable.toJS();
-      var idx = generateRandomIndx(js);
-      js[idx] = Math.random();
-      $scope.immutable = Immutable.List(js);
+      var idx = generateRandomIndx($scope.immutable.size);
+      $scope.immutable = $scope.immutable.set(idx, Math.random());
     }
   };
 
