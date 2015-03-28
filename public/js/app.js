@@ -67,7 +67,7 @@ function SampleCtrl($scope, $location) {
       $scope.standard = generateData(dataSize);
     } else {
       var idx = generateRandomIndx($scope.standard);
-      $scope.stsandard[idx] = Math.random();
+      $scope.standard[idx] = Math.random();
     }
   };
 
