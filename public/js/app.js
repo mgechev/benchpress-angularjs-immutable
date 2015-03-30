@@ -25,7 +25,6 @@ function SampleCtrl($scope, $location) {
       collection.push($scope.$watch(function () {
         return $scope[expr];
       }, function () {
-        console.log('Change!');
       }, false));
     }
   }
@@ -33,7 +32,6 @@ function SampleCtrl($scope, $location) {
   function addCollectionWatchers(expr, count, collection) {
     for (var i = 0; i < count; i += 1) {
       collection.push($scope.$watchCollection(expr, function () {
-        console.log('Change!');
       }));
     }
   }
