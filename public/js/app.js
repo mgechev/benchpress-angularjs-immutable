@@ -13,8 +13,8 @@ function generateData(size) {
 
 function SampleCtrl($scope, $location) {
   'use strict';
-  var dataSize = $location.search().dataSize;
-  var bindingsCount = $location.search().bindingsCount || 0;
+  var dataSize = parseInt($location.search().dataSize, 10);
+  var bindingsCount = parseInt($location.search().bindingsCount || 0);
   var watchers = {
     immutable: [],
     standard: []
@@ -22,13 +22,19 @@ function SampleCtrl($scope, $location) {
 
   function addWatchers(expr, count, collection) {
     for (var i = 0; i < count; i += 1) {
-      collection.push($scope.$watch(expr, function () {}));
+      collection.push($scope.$watch(function () {
+        return $scope[expr];
+      }, function () {
+        console.log('Change!');
+      }, false));
     }
   }
 
   function addCollectionWatchers(expr, count, collection) {
     for (var i = 0; i < count; i += 1) {
-      collection.push($scope.$watchCollection(expr, function () {}));
+      collection.push($scope.$watchCollection(expr, function () {
+        console.log('Change!');
+      }));
     }
   }
 
@@ -40,7 +46,7 @@ function SampleCtrl($scope, $location) {
   }
 
   function generateRandomIndx(length) {
-    return Math.floor(Math.random() * length);
+    return Math.floor(Math.random() * (length - 1));
   }
 
   // Creates a new immutable collection with the specified size
@@ -66,7 +72,7 @@ function SampleCtrl($scope, $location) {
     if (!$scope.standard) {
       $scope.standard = generateData(dataSize);
     } else {
-      var idx = generateRandomIndx($scope.standard.length);
+      var idx = generateRandomIndx(dataSize);
       $scope.standard[idx] = Math.random();
     }
   };
@@ -77,7 +83,7 @@ function SampleCtrl($scope, $location) {
       $scope.immutable = Immutable.List(generateData(dataSize));
     } else {
       // We can cache the plain collection here
-      var idx = generateRandomIndx($scope.immutable.size);
+      var idx = generateRandomIndx(dataSize);
       $scope.immutable = $scope.immutable.set(idx, Math.random());
     }
   };
