@@ -89,7 +89,7 @@ function SampleCtrl($scope, $location) {
   };
 
   // In case we are running benchmark, which changes the array
-  if ($location.search().change) {
+  if ($location.search().testType === 'update') {
     addWatchers('immutable', bindingsCount, watchers.immutable);
     addCollectionWatchers('standard', bindingsCount, watchers.standard);
   }
