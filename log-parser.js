@@ -33,7 +33,8 @@ function formatResults(config) {
   var labels = data[0].labels;
 
   var chart = ChartRenderer.generate(labels, data);
-  ChartRenderer.save(chart, path.join(config.CHART_DIR) + config.filename + '.png');
+  ChartRenderer
+    .save(chart, path.join(config.CHART_DIR) + config.filename + '.png');
 }
 
 var SETS = 'dataType';

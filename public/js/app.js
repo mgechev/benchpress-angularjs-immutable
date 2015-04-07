@@ -150,9 +150,14 @@ function SampleCtrl($scope, $location) {
 
   // In case we are running benchmark, which changes the array
   if ($location.search().testType === 'update') {
-//    addWatchers('immutable', bindingsCount, watchers.immutable);
-//    addCollectionWatchers('standard', bindingsCount, watchers.standard);
-    addCollectionWatchers('revisionable', bindingsCount, watchers.revisionable);
+    var dataType = $location.search().dataType;
+    switch (dataType) {
+      case 'immutable':
+        addWatchers(dataType, bindingsCount, watchers.immutable);
+        break;
+      default:
+        addCollectionWatchers(dataType, bindingsCount, watchers.standard);
+    }
   }
 
   // Clears the `immutable` collection and removes all
