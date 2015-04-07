@@ -2,6 +2,45 @@
 
 var benchmarks = angular.module('benchmarks', ['immutable']);
 
+function RevisionList(list) {
+  'use strict';
+  Object.defineProperty(this, '_list', {
+    enumerable: false,
+    value: list || []
+  });
+  this._version = 0;
+}
+
+RevisionList.prototype._updateRevision = function () {
+  'use strict';
+  this._version += 1;
+};
+
+'push pop shift unshift'.split(' ')
+  .forEach(function (key) {
+    'use strict';
+    RevisionList.prototype[key] = function () {
+      this._list[key].apply(this._list, arguments);
+      this._updateRevision();
+    };
+  });
+
+RevisionList.prototype.set = function (idx, val) {
+  'use strict';
+  this._list[idx] = val;
+  this._updateRevision();
+};
+
+RevisionList.prototype.valueOf = function () {
+  'use strict';
+  return this._list.valueOf();
+};
+
+RevisionList.prototype.toString = function () {
+  'use strict';
+  return this._list.toString();
+};
+
 function generateData(size) {
   'use strict';
   var result = [];
@@ -17,7 +56,8 @@ function SampleCtrl($scope, $location) {
   var bindingsCount = parseInt($location.search().bindingsCount || 0);
   var watchers = {
     immutable: [],
-    standard: []
+    standard: [],
+    revisionable: []
   };
 
   function addWatchers(expr, count, collection) {
@@ -65,6 +105,11 @@ function SampleCtrl($scope, $location) {
     addCollectionWatchers('standard', bindingsCount, watchers.standard);
   };
 
+  $scope.bindRevisionable = function () {
+    $scope.revisionable = new RevisionList(generateData(dataSize));
+    addCollectionWatchers('revisionable', bindingsCount, watchers.revisionable);
+  };
+
   // Updates the current value of the `standard` collection
   $scope.updateStandard = function () {
     if (!$scope.standard) {
@@ -86,10 +131,20 @@ function SampleCtrl($scope, $location) {
     }
   };
 
+  $scope.updateRevisionable = function () {
+    if (!$scope.revisionable) {
+      $scope.revisionable = new RevisionList(generateData(dataSize));
+    } else {
+      var idx = generateRandomIndx(dataSize);
+      $scope.revisionable.set(idx, Math.random());
+    }
+  };
+
   // In case we are running benchmark, which changes the array
   if ($location.search().testType === 'update') {
     addWatchers('immutable', bindingsCount, watchers.immutable);
     addCollectionWatchers('standard', bindingsCount, watchers.standard);
+    addCollectionWatchers('revisionable', bindingsCount, watchers.revisionable);
   }
 
   // Clears the `immutable` collection and removes all
@@ -108,10 +163,17 @@ function SampleCtrl($scope, $location) {
     watchers.standard = [];
   }
 
+  function clearRevisionable() {
+    $scope.revisionable = null;
+    clearWatchers(watchers.revisionable);
+    watchers.revisionable = [];
+  }
+
   // Clears the both collections and all attached listeners to them.
   $scope.clear = function () {
     clearStandard();
     clearImmutable();
+    clearRevisionable();
   };
 }
 

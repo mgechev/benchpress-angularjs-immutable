@@ -68,6 +68,21 @@ var benchmarks = [
       },
       log: './log'
     }, done);
+  },
+  function (bindingsCount, dataSize, done) {
+    runBenchmark({
+      url: PAGE_URL,
+      description: 'should run revisionable update benchmarks',
+      id: 'revisionable-' + dataSize + '-' + bindingsCount,
+      buttons: ['#update-revisionable-btn'],
+      params: {
+        bindingsCount: bindingsCount,
+        dataSize: dataSize,
+        dataType: 'revision-list',
+        testType: 'update',
+      },
+      log: './log'
+    }, done);
   }
 ];
 
