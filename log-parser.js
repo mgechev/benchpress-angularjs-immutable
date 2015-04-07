@@ -27,7 +27,9 @@ function formatResults(config) {
 
   var renderData = new RenderData(config.sets, config.labels, config.values);
   renderData.process(logs);
-  var data = renderData.aggregate();
+  var data = renderData.aggregate(function (a, b) {
+    return a - b;
+  });
   var labels = data[0].labels;
 
   var chart = ChartRenderer.generate(labels, data);
