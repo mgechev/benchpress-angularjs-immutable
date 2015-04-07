@@ -3,8 +3,8 @@
 'use strict';
 var runBenchmark = require('./common').runBenchmark;
 
-var dataSizes = [5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 100000];
-var bindingsCount = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+var dataSizes = /*[5, 10, 20, 50, 100, 500, 1000, 2000, 5000, */[10000, 100000];
+var bindingsCount = /*[5, 10, 20, 30, 40, 50, 60, 70, 80, */[90, 100];
 
 var PAGE_URL = 'http://localhost:8080';
 

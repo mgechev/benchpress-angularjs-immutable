@@ -178,4 +178,13 @@ function SampleCtrl($scope, $location) {
 }
 
 benchmarks
-  .controller('SampleCtrl', SampleCtrl);
+  .controller('SampleCtrl', SampleCtrl)
+  .filter('revisionList', function () {
+    'use strict';
+    return function (data) {
+      if (data instanceof RevisionList) {
+        return data.valueOf();
+      }
+      return data;
+    };
+  });

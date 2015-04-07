@@ -37,6 +37,11 @@
     <li data-ng-repeat="item in standard track by $index" data-ng-bind="item"></li>
   </ul>
 </section>
+<section>
+  <ul>
+    <li data-ng-repeat="item in revisionable | revisionList track by $index" data-ng-bind="item"></li>
+  </ul>
+</section>
 <script src="/node_modules/angular/angular.js"></script>
 <script src="/node_modules/immutable/dist/immutable.js"></script>
 <script src="/node_modules/angular-immutable/dist/immutable.js"></script>
