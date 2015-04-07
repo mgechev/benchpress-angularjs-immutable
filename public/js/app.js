@@ -11,35 +11,43 @@ function RevisionList(list) {
   this._version = 0;
 }
 
-RevisionList.prototype._updateRevision = function () {
+function defineMethod(proto, name, implementation) {
   'use strict';
-  this._version += 1;
-};
+  Object.defineProperty(proto, name, {
+    enumerable: false,
+    value: implementation
+  });
+}
 
 'push pop shift unshift'.split(' ')
   .forEach(function (key) {
     'use strict';
-    RevisionList.prototype[key] = function () {
+    defineMethod(RevisionList.prototype, key, function () {
       this._list[key].apply(this._list, arguments);
       this._updateRevision();
-    };
+    });
   });
 
-RevisionList.prototype.set = function (idx, val) {
+defineMethod(RevisionList.prototype, '_updateRevision', function () {
+  'use strict';
+  this._version += 1;
+});
+
+defineMethod(RevisionList.prototype, 'set', function (idx, val) {
   'use strict';
   this._list[idx] = val;
   this._updateRevision();
-};
+});
 
-RevisionList.prototype.valueOf = function () {
+defineMethod(RevisionList.prototype, 'valueOf', function () {
   'use strict';
   return this._list.valueOf();
-};
+});
 
-RevisionList.prototype.toString = function () {
+defineMethod(RevisionList.prototype, 'toString', function () {
   'use strict';
   return this._list.toString();
-};
+});
 
 function generateData(size) {
   'use strict';
@@ -142,8 +150,8 @@ function SampleCtrl($scope, $location) {
 
   // In case we are running benchmark, which changes the array
   if ($location.search().testType === 'update') {
-    addWatchers('immutable', bindingsCount, watchers.immutable);
-    addCollectionWatchers('standard', bindingsCount, watchers.standard);
+//    addWatchers('immutable', bindingsCount, watchers.immutable);
+//    addCollectionWatchers('standard', bindingsCount, watchers.standard);
     addCollectionWatchers('revisionable', bindingsCount, watchers.revisionable);
   }
 
