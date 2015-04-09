@@ -7,7 +7,7 @@ function formatResults(config) {
   var ChartRenderer = require('./lib/ChartRenderer');
 
   var dataFilter = new Filter(config.filters.map(function (f) {
-    return new FilterRule(f.key, f.value);
+    return new FilterRule(f.key, f.rule);
   }));
 
   var fs = require('fs');
@@ -43,7 +43,7 @@ var VALUES = 'scriptTime';
 var DIR_NAME = './log/';
 var CHART_DIR = './charts/';
 
-[5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 100000]
+[5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 100000, 1000000]
   .forEach(function (s) {
     formatResults({
       filename: 'data-size-' + s,
@@ -52,7 +52,7 @@ var CHART_DIR = './charts/';
       values: VALUES,
       filters: [{
         key: 'dataSize',
-        value: function (val) {
+        rule: function (val) {
           return val === s;
         }
       }],
