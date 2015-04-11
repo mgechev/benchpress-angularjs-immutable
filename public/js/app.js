@@ -92,7 +92,7 @@ function SampleCtrl($scope, $location) {
   }
 
   function generateRandomIndx(length) {
-    return Math.floor(Math.random() * (length - 1));
+    return Math.floor(Math.random() * length);
   }
 
   // Creates a new immutable collection with the specified size
